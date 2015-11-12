@@ -5,19 +5,17 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Created by me on 11/4/15.
+ * Test class for playing
  */
 public class Main {
     public static void main(String[] args){
-        //typeListener();
-        int mode;
-        mode = getMenuItem();
-        System.out.println("Chosen mode is: " + mode);
+        //System.out.println("Chosen mode is: " + mode);
         Scanner sc = new Scanner(System.in);
-        sc.nextLine();
-        List<List<String>> list = new ArrayList<List<String>>();
+        //sc.nextLine();
+        List<List<String>> list = new ArrayList<>();
         for(int i = 0; i < 3; i++) {
-            List<String> row = new ArrayList<String>();
+            clearScreen();
+            List<String> row = new ArrayList<>();
             System.out.print("Set ID: ");
             String ID = sc.nextLine();
             System.out.print("Set Name: ");
@@ -26,16 +24,39 @@ public class Main {
             String phone = sc.nextLine();
             row.add(ID + ", " + name + ", " + phone);
             list.add(row);
-            clearScreen();
         }
-        System.out.println("ID\t| Name\t\t| Phone number");
-        System.out.println("-------------------------------");
-        //list.foreach(System.out::println);
-        for(List<String> line : list){
-            for(String s : line){
-                String[] s2 = s.split(", ");
-                System.out.print(s2[0] + "\t| " + s2[1] + "\t| " + s2[2] + "\n");
-            }
+        int mode;
+        mode = getMenuItem();
+        switch (mode){
+            case 12:
+                clearScreen();
+                System.out.println();
+                System.out.println("  <===          Список клиентов           ===>");
+                System.out.println();
+                System.out.println("  ID\t| Имя\t\t| Номер телефона");
+                System.out.println("  -------------------------------------------");
+                //list.foreach(System.out::println);
+                for(List<String> line : list){
+                    for(String s : line){
+                        String[] s2 = s.split(", ");
+                        if (s2[1].length() < 5) {
+                            s2[1] = s2[1] + "\t";
+                        }
+                        System.out.print("  " + s2[0] + "\t| " + s2[1] + "\t| " + s2[2] + "\n");
+                    }
+                }
+                System.out.println("  -------------------------------------------");
+                System.out.println();
+                System.out.println("  Меню: ");
+                System.out.println("  1 - Назад | 2 - Добавить | 3 - Изменить | 4 - Удалить ");
+                System.out.println("  -----  ");
+                System.out.print("  Command => ");
+                sc.nextLine();
+                break;
+            default:
+                System.out.println("Другой режим");
+                sc.nextLine();
+                System.exit(0);
         }
     }
 //TODO Создать метод бла-бла
@@ -49,9 +70,7 @@ public class Main {
         if (OS.contains("Windows")) {
             try {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
         } else {
