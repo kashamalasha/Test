@@ -61,11 +61,6 @@ public class Main {
     }
 //TODO Создать метод бла-бла
     private static void clearScreen() {
-        //Очистка экрана - строка ввода в нижней части экрана
-        /*for (int i = 0; i < 100; i++) {
-            System.out.println("\b");
-        }*/
-        //Очистка экрана - строка ввода в верхней части экрана
         final String OS = System.getProperty("os.name");
         if (OS.contains("Windows")) {
             try {
@@ -74,9 +69,8 @@ public class Main {
                 e.printStackTrace();
             }
         } else {
-            final String ANSI_CLS = "\u001b[2J";
-            final String ANSI_HOME = "\u001b[H";
-            System.out.print(ANSI_HOME + ANSI_CLS);
+            //ANSI_CLS and ANSI_HOME
+            System.out.print("\u001b[2J\u001b[H");
             System.out.flush();
         }
     }
